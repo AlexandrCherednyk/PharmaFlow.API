@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  pharmaflow.administrationmanager:
+    image: ${DOCKER_REGISTRY-}pharmaflowadministrationmanager
+    build:
+      context: .
+      dockerfile: PharmaFlow.AdministrationManager/Dockerfile
