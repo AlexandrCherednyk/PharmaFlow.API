@@ -11,3 +11,28 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql-server
+    ports:
+      - "8001:1433"
+    environment:
+      - SA_PASSWORD=password
+      - ACCEPT_EULA=Y
+    
+  keycloak:
+    image: jboss/keycloak:16.1.1
+    container_name: keycloak
+    depends_on:
+      - mssql
+    ports:
+      - "38080:8080"
+    environment:
+      - DB_VENDOR=mssql
+      - DB_ADDR=mssql
+      - DB_DATABASE=keycloak
+      - DB_USER=mssql
+      - DB_PASSWORD=password
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=password
