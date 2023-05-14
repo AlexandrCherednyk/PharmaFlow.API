@@ -1,8 +1,12 @@
 version: '3.4'
 
 services:
-  pharmaflow.administrationmanager:
-    image: ${DOCKER_REGISTRY-}pharmaflowadministrationmanager
+  pharmaflow.administrationservice:
+    image: ${DOCKER_REGISTRY-}pharmaflowadministrationservice
+    ports:
+      - 55443:443
+      - 15020:8080
     build:
       context: .
-      dockerfile: PharmaFlow.AdministrationManager/Dockerfile
+      dockerfile: PharmaFlow.AdministrationService/Dockerfile
+
